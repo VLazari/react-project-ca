@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-// const colors = require('tailwindcss/colors')
 module.exports = {
 	content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 	theme: {
@@ -8,7 +7,13 @@ module.exports = {
         red: {
           new: '#FF0000',
         },
-      }
+				gold: {
+          new: '#FBB03B',
+        },
+      },
+			gridTemplateRows: {
+				'[auto,auto,1fr]': 'auto auto 1fr',
+			},
     },
   },
 	plugins: [

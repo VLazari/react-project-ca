@@ -1,25 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-
-import { useEffect, useState } from "react"; //test
+import fetchAPI from "../hooks/fetchAPI";
+import { Link } from "react-router-dom";
 
 export default function Home() {
-	const [products, setProducts] = useState([]);
-
-	useEffect(() => {
-		const fetchProducts = async () => {
-			try {
-				const response = await fetch("https://api.noroff.dev/api/v1/online-shop");
-				const json = await response.json();
-				setProducts(json);
-			} catch (error) {
-				console.error(error);
-			}
-		};
-
-		fetchProducts();
-	}, []);
+	const { data, isLoading, error } = fetchAPI("https://api.noroff.dev/api/v1/online-shop");
 
 	return (
 		<div>
@@ -36,9 +22,14 @@ export default function Home() {
 					<h2 className="sr-only">SHOP - Products</h2>
 
 					<div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-						{products.map((product) => (
-							<a key={product.id} href={product.href} className="group p-1 bg-white">
-								<div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
+						{data.map((product) => (
+							<Link key={product.id} to={`/product/${product.id}`} className="group p-1 bg-white hover:p-0 shadow-lg">
+								<div className="relative aspect-w-7 aspect-h-8 w-full overflow-hidden rounded-lg bg-gray-200">
+									{product.discount > 0 && (
+										<div className="absolute left-5 top-5 flex justify-center items-center h-8 w-14 bg-red-new z-10 rounded-full">
+											<p className="text-md font-medium text-white">{product.discount}%</p>
+										</div>
+									)}
 									<img
 										src={product.imageUrl}
 										alt={product.title}
@@ -46,8 +37,8 @@ export default function Home() {
 									/>
 								</div>
 								<h3 className="mt-4 text-sm text-gray-700">{product.title}</h3>
-								<p className="mt-1 text-lg font-medium text-gray-900">{product.price}</p>
-							</a>
+								<p className="mt-1 text-lg font-medium text-slate-900">{product.price}</p>
+							</Link>
 						))}
 					</div>
 				</div>
