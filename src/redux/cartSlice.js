@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const updateCartInfo = (state) => {
 	state.inCartItems = state.cartProducts.reduce((total, product) => (total += product.quantity), 0);
-	state.cartTotal = state.cartProducts.reduce((total, product) => total + product.price * product.quantity, 0);
+	state.cartTotal = state.cartProducts.reduce((total, product) => total + product.discountedPrice * product.quantity, 0);
 };
 
 export const cartSlice = createSlice({
