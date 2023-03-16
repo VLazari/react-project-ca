@@ -1,14 +1,17 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import { addProduct } from "../redux/cartSlice";
+import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStarHalfStroke, faStar, faBasketShopping } from "@fortawesome/free-solid-svg-icons";
 import Loader from "../components/Loader";
 import fetchAPI from "../hooks/fetchAPI";
 
 export default function Product() {
 	const { id } = useParams();
 	const { data, isLoading, error } = fetchAPI(`https://api.noroff.dev/api/v1/online-shop/${id}`);
+	const [isAdded, setIsAdded] = useState(false);
+	const dispatch = useDispatch();
 
 	if (isLoading) {
 		return <Loader />;
@@ -19,9 +22,9 @@ export default function Product() {
 	}
 	if (data)
 		return (
-			<div className="bg-white min-h-screen" style={{ minHeight: "calc(100vh - 160px)" }}>
+			<div className="min-h-screen" style={{ minHeight: "calc(100vh - 160px)" }}>
 				<div className="pt-6">
-					<div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+					<div className="bg-white py-3 shadow-lg mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
 						<div className="aspect-w-4 aspect-h-5 rounded-lg">
 							<img src={data[0].imageUrl} alt="Product image" className="h-full w-full object-cover object-center" />
 						</div>
@@ -34,11 +37,11 @@ export default function Product() {
 									<div className="flex items-center">
 										{[1, 2, 3, 4, 5].map((rating) =>
 											data[0].rating >= rating ? (
-												<FontAwesomeIcon className="mx-0.5 text-md text-gold-new" icon={faStar} />
+												<FontAwesomeIcon key={rating} className="mx-0.5 text-md text-gold-new" icon={faStar} />
 											) : data[0].rating < rating && data[0].rating > rating - 1 ? (
-												<FontAwesomeIcon className="mx-0.5 text-md text-gold-new" icon={faStarHalfStroke} />
+												<FontAwesomeIcon key={rating} className="mx-0.5 text-md text-gold-new" icon={faStarHalfStroke} />
 											) : (
-												<FontAwesomeIcon className="mx-0.5 text-md text-gray-200" icon={faStar} />
+												<FontAwesomeIcon key={rating} className="mx-0.5 text-md text-gray-200" icon={faStar} />
 											)
 										)}
 									</div>
@@ -57,12 +60,22 @@ export default function Product() {
 							</div>
 							<h3 className="sr-only">Description</h3>
 							<p className="text-base text-gray-900">{data[0].description}</p>
-							<button
-								type="submit"
-								className="mt-10 p-2 px-6 flex w-4/5 md:w-auto items-center justify-center rounded-md bg-gold-new py-3 mx-auto text-base font-medium text-slate-900 hover:font-bold"
-							>
-								Add to cart
-							</button>
+							{!isAdded ? (
+								<button
+									onClick={() => (dispatch(addProduct(data[0])), setIsAdded(true))}
+									className="shadow-md mt-10 p-2 px-6 flex w-4/5 md:w-auto items-center justify-center rounded-md bg-gold-new py-3 mx-auto text-base font-medium text-slate-900 hover:font-bold"
+								>
+									Add to cart
+								</button>
+							) : (
+								<Link
+									to={"/checkout"}
+									className="mt-10 p-2 px-6 flex w-4/5 md:w-auto items-center justify-center py-3 mx-auto text-base font-medium hover:font-bold hover:cursor-pointer"
+								>
+									<FontAwesomeIcon className="mx-0.5 text-lg text-green-700" icon={faBasketShopping} />
+									<span className="mx-3 text-green-700">Added to Cart</span>
+								</Link>
+							)}
 						</div>
 					</div>
 				</div>
@@ -79,9 +92,9 @@ export default function Product() {
 										<div className="flex items-center">
 											{[1, 2, 3, 4, 5].map((rating) =>
 												review.rating >= rating ? (
-													<FontAwesomeIcon className="mx-0.5 text-md text-gold-new" icon={faStar} />
+													<FontAwesomeIcon key={rating} className="mx-0.5 text-md text-gold-new" icon={faStar} />
 												) : (
-													<FontAwesomeIcon className="mx-0.5 text-md text-gray-200" icon={faStar} />
+													<FontAwesomeIcon key={rating} className="mx-0.5 text-md text-gray-200" icon={faStar} />
 												)
 											)}
 											<p className="ml-3 text-sm font-medium text-slate-900">({review.rating})</p>
