@@ -24,19 +24,19 @@ export default function Checkout() {
 									<img src={product.imageUrl} alt="image" className="max-h-40 w-36 object-cover object-center" />
 								</div>
 								<h3 className="font-bold col-span-6 p-2 mx-auto md:mx-0">{product.title}</h3>
-								<p className="col-span-3 p-2">$ {product.discountedPrice * product.quantity}</p>
+								<p className="col-span-3 p-2">$ {(product.discountedPrice * product.quantity).toFixed(2)}</p>
 								<div className="col-span-6 mx-auto md:mx-0">
-									<span className="text-gray-400 mr-5 hidden md:inline-block">Qty</span>
+									<span className="text-gray-400 select-none mr-5 hidden md:inline-block">Qty</span>
 									<span
 										onClick={() => dispatch(decrementProduct(product))}
-										className="py-2 px-3 border-2 border-slate-200 rounded-lg shadow-md hover:cursor-pointer hover:border-slate-300"
+										className="select-none py-2 px-3 border-2 border-slate-200 rounded-lg shadow-md hover:cursor-pointer hover:border-slate-300"
 									>
 										-
 									</span>
-									<span className="mx-3">{product.quantity}</span>
+									<span className="mx-3 select-none">{product.quantity}</span>
 									<span
 										onClick={() => dispatch(addProduct(product))}
-										className="py-2 px-3 border-2 border-slate-200 rounded-lg shadow-md hover:cursor-pointer hover:border-slate-300"
+										className="select-none py-2 px-3 border-2 border-slate-200 rounded-lg shadow-md hover:cursor-pointer hover:border-slate-300"
 									>
 										+
 									</span>
@@ -60,7 +60,7 @@ export default function Checkout() {
 					<Link
 						to={"/success"}
 						onClick={() => dispatch(clearCart())}
-						className="shadow-md mt-10 mx-auto p-2 px-6 w-full md:w-10/12 flex items-center justify-center rounded-md bg-gold-new py-3 text-base font-medium text-slate-900 hover:font-bold"
+						className="shadow-md my-10 mx-auto p-2 px-6 w-full md:w-10/12 flex items-center justify-center rounded-md bg-gold-new py-3 text-base font-medium text-slate-900 hover:font-bold"
 					>
 						Checkout
 					</Link>

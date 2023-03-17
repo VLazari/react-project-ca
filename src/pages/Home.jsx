@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Loader from "../components/Loader";
@@ -7,6 +7,17 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
 	const { data, isLoading, error } = fetchAPI("https://api.noroff.dev/api/v1/online-shop");
+	const [query, setQuery] = useState("");
+	const [searchResults, setSearchResults] = useState([]);
+
+	useEffect(() => {
+		if (query === "") {
+			setSearchResults([]);
+		} else {
+			const filteredResults = data.filter((product) => product.title.toLowerCase().includes(query.toLowerCase()));
+			setSearchResults(filteredResults);
+		}
+	}, [query, data]);
 
 	if (isLoading) {
 		return <Loader />;
@@ -17,25 +28,35 @@ export default function Home() {
 	}
 	if (data)
 		return (
-			<div>
-				<div className="flex flex-col justify-center items-center bg-[url('/src/assets/store.jpg')] bg-bottom bg-cover h-56 w-full bg-img-cover">
-					<h1 className="text-slate-900 z-10">Shop With Us</h1>
-					<span className="flex flex-col items-center p-1 bg-slate-900 rounded-2xl z-10">
+			<div className="relative">
+				<div className="flex flex-col justify-between items-center bg-[url('/src/assets/store.jpg')] bg-bottom bg-cover h-56 w-full bg-img-cover">
+					<h1 className="text-slate-900 z-10 mt-10">Shop With Us</h1>
+					<span className="relative flex flex-col items-center p-1 bg-slate-900 rounded-t-2xl z-10">
 						<div className="rounded-full">
 							<FontAwesomeIcon className="mx-2 text-xl text-white" icon={faMagnifyingGlass} />
-							<input className="w-80 p-5 py-2 border rounded-full" type="text" placeholder="Search product..." />
+							<input
+								value={query}
+								onChange={(event) => setQuery(event.target.value)}
+								className="w-80 p-5 py-2 border rounded-full"
+								type="text"
+								placeholder="Search product..."
+							/>
 						</div>
-						<div className="text-white w-80">
-							<li>jhdbhsdhfa</li>
-							<li>sdfsdfsdf</li>
-							<li>jhdbhsdhfa</li>
-							<li>sdfsdfsdf</li>
-						</div>
+						{query.length > 0 && (
+							<ul className="absolute top-full left-0 w-full max-h-64 overflow-y-auto bg-slate-900 shadow-lg">
+								{searchResults.map((product) => (
+									<Link key={product.id} to={`/product/${product.id}`}>
+										<li className="text-gray-100 py-2 px-4 cursor-pointer hover:bg-gray-300 hover:text-slate-900">
+											{product.title}
+										</li>
+									</Link>
+								))}
+							</ul>
+						)}
 					</span>
 				</div>
 				<div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
 					<h2 className="sr-only">SHOP - Products</h2>
-
 					<div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
 						{data.map((product) => (
 							<Link key={product.id} to={`/product/${product.id}`} className="group p-1 bg-white hover:p-0 shadow-lg">
