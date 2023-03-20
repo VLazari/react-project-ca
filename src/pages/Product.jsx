@@ -3,9 +3,10 @@ import { useParams, Link } from "react-router-dom";
 import { addProduct } from "../redux/cartSlice";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStarHalfStroke, faStar, faBasketShopping } from "@fortawesome/free-solid-svg-icons";
+import { faBasketShopping } from "@fortawesome/free-solid-svg-icons";
 import Loader from "../components/Loader";
 import fetchAPI from "../hooks/fetchAPI";
+import StarAverageRating from "../components/ui/StarAverageRating";
 
 export default function Product() {
 	const { id } = useParams();
@@ -26,26 +27,19 @@ export default function Product() {
 				<div className="pt-6">
 					<div className="bg-white py-3 shadow-lg mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
 						<div className="aspect-w-4 aspect-h-5 rounded-lg">
-							<img src={data[0].imageUrl} alt="Product image" className="h-full w-full object-cover object-center" />
+							<img
+								src={data[0].imageUrl}
+								alt="Product image"
+								className="h-full w-full object-cover object-center rounded-xl shadow-sm"
+							/>
 						</div>
 						<div className="m-3">
 							<h2 className="sr-only">Product information</h2>
 							<h1 className="m-4 text-2xl font-bold text-gray-900 sm:text-3xl">{data[0].title}</h1>
 							<div className="my-3">
-								<h3 className="sr-only">Reviews</h3>
 								<div className="flex items-center">
-									<div className="flex items-center">
-										{[1, 2, 3, 4, 5].map((rating) =>
-											data[0].rating >= rating ? (
-												<FontAwesomeIcon key={rating} className="mx-0.5 text-md text-gold-new" icon={faStar} />
-											) : data[0].rating < rating && data[0].rating > rating - 1 ? (
-												<FontAwesomeIcon key={rating} className="mx-0.5 text-md text-gold-new" icon={faStarHalfStroke} />
-											) : (
-												<FontAwesomeIcon key={rating} className="mx-0.5 text-md text-gray-200" icon={faStar} />
-											)
-										)}
-									</div>
-									<p className="ml-3 text-sm font-medium text-slate-900">{data[0].reviews.length} reviews</p>
+									<StarAverageRating rating={data[0].rating} />
+									<p className="ml-3 text-sm font-medium text-slate-900">{data[0].reviews.length} review(s)</p>
 								</div>
 							</div>
 							<div className="flex items-center my-3">
@@ -88,17 +82,7 @@ export default function Product() {
 								<div className="flex flex-col align-middle lg:flex-row">
 									<h6 className="mr-5 basis-1/5">{review.username}</h6>
 									<div className="mr-5 basis-1/5">
-										<h3 className="sr-only">Reviews</h3>
-										<div className="flex items-center">
-											{[1, 2, 3, 4, 5].map((rating) =>
-												review.rating >= rating ? (
-													<FontAwesomeIcon key={rating} className="mx-0.5 text-md text-gold-new" icon={faStar} />
-												) : (
-													<FontAwesomeIcon key={rating} className="mx-0.5 text-md text-gray-200" icon={faStar} />
-												)
-											)}
-											<p className="ml-3 text-sm font-medium text-slate-900">({review.rating})</p>
-										</div>
+										<StarAverageRating rating={data[0].rating} />
 									</div>
 									<p className="basis-3/5">{review.description}</p>
 								</div>
