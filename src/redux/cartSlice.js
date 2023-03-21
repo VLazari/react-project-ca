@@ -1,17 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getItem, setItem } from "../utils/useLocalStorage";
 
 const updateCartInfo = (state) => {
 	state.inCartItems = state.cartProducts.reduce((total, product) => (total += product.quantity), 0);
 	state.cartTotal = state.cartProducts.reduce((total, product) => (total += product.discountedPrice * product.quantity), 0).toFixed(2);
 };
 
+const initialState = getItem("cartState") || {
+	cartProducts: [],
+	inCartItems: 0,
+	cartTotal: 0,
+};
+
 export const cartSlice = createSlice({
 	name: "cart",
-	initialState: {
-		cartProducts: [],
-		inCartItems: 0,
-		cartTotal: 0,
-	},
+	initialState,
 	reducers: {
 		addProduct: (state, action) => {
 			const existingProductIndex = state.cartProducts.findIndex((product) => product.id === action.payload.id);
@@ -19,6 +22,7 @@ export const cartSlice = createSlice({
 				? state.cartProducts[existingProductIndex].quantity++
 				: state.cartProducts.push({ ...action.payload, quantity: 1 });
 			updateCartInfo(state);
+			setItem("cartState", state);
 		},
 		decrementProduct: (state, action) => {
 			const existingProductIndex = state.cartProducts.findIndex((product) => product.id === action.payload.id);
@@ -30,6 +34,7 @@ export const cartSlice = createSlice({
 				}
 			}
 			updateCartInfo(state);
+			setItem("cartState", state);
 		},
 		removeProduct: (state, action) => {
 			const existingProductIndex = state.cartProducts.findIndex((product) => product.id === action.payload.id);
@@ -37,11 +42,13 @@ export const cartSlice = createSlice({
 				state.cartProducts.splice(existingProductIndex, 1);
 			}
 			updateCartInfo(state);
+			setItem("cartState", state);
 		},
 		clearCart: (state) => {
 			state.cartProducts = [];
 			state.inCartItems = 0;
 			state.cartTotal = 0;
+			setItem("cartState", state);
 		},
 	},
 });
