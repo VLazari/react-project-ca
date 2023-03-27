@@ -22,7 +22,7 @@ export default function Product() {
 		return <div>Error: {error.message}</div>;
 	}
 	return (
-		<div className="min-h-screen" style={{ minHeight: "calc(100vh - 160px)" }}>
+		<div>
 			<div className="pt-6">
 				<div className="bg-white py-3 shadow-lg mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
 					<div className="aspect-w-4 aspect-h-5 rounded-lg">
@@ -40,11 +40,11 @@ export default function Product() {
 						<div className="flex items-center my-3">
 							{data[0].discount > 0 ? (
 								<>
-									<p className="mt-1 text-md line-through font-medium text-slate-400">{data[0].price}</p>
-									<p className="mt-1 mx-2 text-lg font-medium text-red-new">{data[0].discountedPrice} NOK</p>
+									<p className="mt-1 text-md line-through font-medium text-slate-400">$ {data[0].price}</p>
+									<p className="mt-1 mx-2 text-lg font-medium text-red-new">$ {data[0].discountedPrice}</p>
 								</>
 							) : (
-								<p className="mt-1 text-lg font-medium text-slate-900">{data[0].discountedPrice} NOK</p>
+								<p className="mt-1 text-lg font-medium text-slate-900">$ {data[0].discountedPrice}</p>
 							)}
 						</div>
 						<h3 className="sr-only">Description</h3>
@@ -52,7 +52,7 @@ export default function Product() {
 						{!isAdded ? (
 							<button
 								onClick={() => (dispatch(addProduct(data[0])), setIsAdded(true))}
-								className="shadow-md mt-10 p-2 px-6 flex w-4/5 md:w-auto items-center justify-center rounded-md bg-gold-new py-3 mx-auto text-base font-medium text-slate-900 hover:font-bold"
+								className="shadow-md mt-10 p-2 px-6 flex w-4/5 md:w-auto items-center justify-center rounded-md bg-gold-new py-3 mx-auto text-base font-medium text-slate-900 transition ease-in-out delay-150 hover:font-bold"
 							>
 								Add to cart
 							</button>
@@ -67,7 +67,7 @@ export default function Product() {
 								</Link>
 								<Link
 									to={"/"}
-									className="mt-10 p-2 px-6 flex w-4/5 md:w-auto items-center justify-center py-3 mx-auto text-base font-medium hover:font-bold hover:cursor-pointer"
+									className="mt-10 p-2 px-6 flex w-4/5 md:w-auto items-center justify-center py-3 mx-auto text-base font-medium transition ease-in-out delay-150 hover:font-bold hover:cursor-pointer"
 								>
 									{"<<"} Back to shop
 								</Link>

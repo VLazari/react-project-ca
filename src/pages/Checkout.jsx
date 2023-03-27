@@ -10,7 +10,7 @@ export default function Checkout() {
 	const dispatch = useDispatch();
 
 	return (
-		<div className="bg-white min-h-screen max-w-7xl mx-auto px-1 text-slate-900" style={{ minHeight: "calc(100vh - 160px)" }}>
+		<div className="bg-white max-w-7xl mx-auto px-1 text-slate-900">
 			<h1 className="text-center text-3xl md:text-6xl py-5 md:py-9">Shopping Cart</h1>
 			<hr className="mx-2" />
 			{inCartItems === 0 ? (
@@ -29,14 +29,14 @@ export default function Checkout() {
 									<span className="text-gray-400 select-none mr-5 hidden md:inline-block">Qty</span>
 									<span
 										onClick={() => dispatch(decrementProduct(product))}
-										className="select-none py-2 px-3 border-2 border-slate-200 rounded-lg shadow-md hover:cursor-pointer hover:border-slate-300"
+										className="select-none py-2 px-3 border-2 border-slate-200 rounded-lg shadow-md transition ease-in-out delay-150 hover:cursor-pointer hover:border-slate-300 hover:text-lg"
 									>
 										-
 									</span>
 									<span className="mx-3 select-none">{product.quantity}</span>
 									<span
 										onClick={() => dispatch(addProduct(product))}
-										className="select-none py-2 px-3 border-2 border-slate-200 rounded-lg shadow-md hover:cursor-pointer hover:border-slate-300"
+										className="select-none py-2 px-3 border-2 border-slate-200 rounded-lg shadow-md transition ease-in-out delay-150 hover:cursor-pointer hover:border-slate-300 hover:text-lg"
 									>
 										+
 									</span>

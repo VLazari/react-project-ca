@@ -7,11 +7,11 @@ import messageSend from "../assets/messageSend.png";
 
 const schema = yup
 	.object({
-		firstName: yup.string().min(3, "Your first name should be at least 3 characters.").required("Please enter your first name"),
-		lastName: yup.string().min(3, "Your last name should be at least 3 characters.").required("Please enter your last name"),
+		firstName: yup.string().trim().min(3, "Your first name should be at least 3 characters.").required("Please enter your first name"),
+		lastName: yup.string().trim().min(3, "Your last name should be at least 3 characters.").required("Please enter your last name"),
 		emailAddress: yup.string().email("Invalid email format").required("Please enter your email"),
-		subject: yup.string().min(3, "Your subject should be at least 3 characters.").required("Please enter your subject"),
-		message: yup.string().min(3, "Your message should be at least 3 characters.").required("Please enter your message"),
+		subject: yup.string().trim().min(3, "Your subject should be at least 3 characters.").required("Please enter your subject"),
+		message: yup.string().trim().min(3, "Your message should be at least 3 characters.").required("Please enter your message"),
 	})
 	.required();
 
@@ -34,7 +34,7 @@ export default function Contact() {
 	}
 
 	return (
-		<div className="pt-10 mx-auto max-w-7xl min-h-screen" style={{ minHeight: "calc(100vh - 160px)" }}>
+		<div className="pt-10 mx-auto max-w-7xl">
 			{isSubmitted ? (
 				<div className="mx-5 lg:mx-20">
 					<img src={messageSend} alt="Message send image" />
