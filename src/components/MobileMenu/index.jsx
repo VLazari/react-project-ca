@@ -16,7 +16,7 @@ export default function MobileMenu() {
 
 	return (
 		<div
-			className={`flex justify-center sticky bottom-1 mx-auto py-4 z-20 sm:hidden bg-slate-900 backdrop-opacity-10 text-white rounded-full overflow-hidden transition-all duration-[0.6s] ease-in-out ${transitionStyles}`}
+			className={`flex justify-center sticky bottom-0 mx-auto my-1 py-3 z-20 sm:hidden bg-slate-900 backdrop-opacity-10 text-white rounded-full overflow-hidden transition-all duration-[0.6s] ease-in-out ${transitionStyles}`}
 		>
 			<Link className="rounded-md mr-8 px-6" to="/">
 				<FontAwesomeIcon className={`text-2xl ${location.pathname === "/" ? "opacity-60" : ""}`} icon={faHouse} />
