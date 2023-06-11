@@ -1,71 +1,113 @@
-# react-project-ca
-# Your project title
+# React eCom Store
 
-![image](https://user-images.githubusercontent.com/52622303/164316813-4b12d99f-aeb7-4069-85cf-e72b3a50ac99.png)
+![image](./public/eCom.png)
 
-A simple overview of the use/purpose of the project.
+A React e-commerce store project built as a school assignment.
 
 ## Description
 
-Add a more detailed description of what your project entails and set out to do.
+### Goal
 
-You can add some bullet points if you'd like to:
+The goal of this project is to apply knowledge of React by building an e-commerce store.
+The following pages should be built for the e-commerce store:
 
-- List item 1
-- List item 2
-- List item 3
+- Homepage
+- Individual product page
+- Cart page
+- Checkout success page
+
+#### Homepage
+
+- The homepage should display a list of all the products.
+- There should be a look-ahead search bar that filters products when typing in a product name.
+- Clicking on a product should take the user to the individual product page.
+
+#### Individual Product Page
+
+- The individual product page should display data for a single product.
+- There should be an "Add to Cart" button that adds the product to the cart upon clicking.
+- The product page should display the title, description, and image of the product.
+- Reviews for the product should be listed if available.
+- The discounted price property should be used to display the price of the product.
+- If there is a difference between the discounted price and the regular price, it indicates a discount. Calculate and display the discount on the page.
+
+#### Cart Page
+
+- Clicking on the Cart icon should load the Cart page.
+- The Cart page should list all the products added to the cart.
+- The total price of the products should be displayed.
+- The Cart page should have a Checkout button.
+
+#### Checkout Success Page
+
+- The Checkout success page should display a message notifying the user that their order was successful.
+- A link should be provided to allow the user to go back to the store.
+- The cart must be cleared when the user reaches the Checkout success page.
+
+#### Contact Page
+
+- The contact page should contain a contact form with the following fields.
+- Form validation is required for the following fields:
+  - Full name (Minimum of 3 characters, required)
+  - Subject (Minimum of 3 characters, required)
+  - Email (Must be a valid email address, required)
+  - Body (Minimum of 3 characters, required)
+
+#### Additional Requirements
+
+- React Router should be used for page navigation.
+- The design should be responsive.
+- You are welcome to use a CSS Framework.
+- Clean and well-formatted code is expected.
 
 ## Built With
 
 You can list a the tech stack that you've used over here
 
 - [React.js](https://reactjs.org/)
-- [Bootstrap](https://getbootstrap.com)
+- [Reudx Toolkit](https://redux-toolkit.js.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
 
 ## Getting Started
 
 ### Installing
 
-This is where you list how to get the project started. It typically just includes telling a person to clone the repo and then to install the dependencies e.g.
-
 1. Clone the repo:
 
 ```bash
-git clone git@github.com:NoroffFEU/portfolio-1-example.git
+git clone https://github.com/VLazari/react-project-ca.git
 ```
 
 2. Install the dependencies:
 
 ```
+cd react-project-ca
 npm install
 ```
 
 ### Running
 
-Here is where you detail how to run the app. It typically involves the commands you'd need to run to start the project e.g.
-
 To run the app, run the following commands:
 
 ```bash
-npm run start
+npm run dev
 ```
+Open http://localhost:[port] to view the app in your browser.
 
 ## Contributing
 
-Here you can detail any information you want to provide regarding contributing to the project. For big projects you will usually have a separate `CONTRIBUTING.md` and link to it, but for smaller projects you can simply include instructions here. These instructions can simply detail the process you want a person to take, such as to make sure to open a pull request so code can be reviewed.
+Contributions are welcome! If you have any suggestions or improvements, feel free to open an issue or create a pull request.
 
 ## Contact
 
-This is where you can leave your social links for people to contact you, such as a LinkedIn profile or Twitter link e.g.
+For any inquiries or questions, you can reach me via the following:
 
-[My Twitter page](www.twitter.com)
-
-[My LinkedIn page](www.linkedin.com)
-
-## License
-
-You can link to your license file here if you're using one, or mention what license the codebase falls under. If you're unsure then you can simply delete this section.
+[My LinkedIn page](www.linkedin.com/in/viorel-lazari)
 
 ## Acknowledgments
 
-This is where you can add any acknowledgements if you'd like, such as to people who have helped you or any code snippets you'd like to mention. You can delete this section if you don't have any acknowledgements to make.
+I would like to acknowledge the following resources for their contributions to this project:
+
+- Noroff School of Applied Science for providing the Online Shop API. The API served as the data source for this eCom store project, enabling the retrieval of product information, reviews, and more.
+
+I am grateful to Noroff School of Applied Science for making this API available, allowing me to apply my knowledge of React to build this project.
